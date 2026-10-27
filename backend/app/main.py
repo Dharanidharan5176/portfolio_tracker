@@ -10,13 +10,17 @@ from backend.app.core.errors import AppError, app_error_handler, generic_excepti
 from backend.app.db.base import Base
 from backend.app.db.session import engine
 
+from backend.app.services.scheduler_service import scheduler_service
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: ensure tables exist if not using alembic directly, and verify data dirs
     settings.data_path
     Base.metadata.create_all(bind=engine)
+    scheduler_service.start()
     logger.info("Local Portfolio Tracker API started cleanly on %s:%s", settings.APP_HOST, settings.APP_PORT)
     yield
+    scheduler_service.shutdown()
     logger.info("Local Portfolio Tracker API shutting down.")
 
 app = FastAPI(
