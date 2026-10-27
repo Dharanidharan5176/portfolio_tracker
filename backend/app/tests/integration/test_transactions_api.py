@@ -1,3 +1,4 @@
+import uuid
 from datetime import date
 from fastapi.testclient import TestClient
 from backend.app.main import app
@@ -5,9 +6,10 @@ from backend.app.main import app
 client = TestClient(app)
 
 def test_full_portfolio_and_transaction_flow():
-    # 1. Create a portfolio
+    # 1. Create a portfolio with unique name
+    unique_name = f"Integration Portfolio {uuid.uuid4().hex[:6]}"
     res = client.post("/api/v1/portfolios", json={
-        "name": "Integration Portfolio",
+        "name": unique_name,
         "base_currency": "INR",
         "timezone": "Asia/Kolkata",
         "benchmark_symbol": "^NSEI"
