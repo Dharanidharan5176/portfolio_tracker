@@ -18,3 +18,4 @@ def list_jobs(db: Session = Depends(get_db)):
 def trigger_validation_job():
     run = scheduler_service.run_validation_job()
     return {"job_id": run.id, "status": run.status, "counts": run.counts}
+

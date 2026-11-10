@@ -8,9 +8,11 @@ from sqlalchemy.orm import Session
 from backend.app.db.session import SessionLocal
 from backend.app.db.models.audit import JobRun
 from backend.app.services.data_quality_service import data_quality_service
+from backend.app.services.backup_service import backup_service
 from backend.app.core.logging import logger
 
 job_lock = threading.Lock()
+backup_job_lock = threading.Lock()
 
 class SchedulerService:
     def __init__(self):
@@ -27,15 +29,69 @@ class SchedulerService:
                 name="Data Quality Validation Pipeline",
                 replace_existing=True
             )
+            # Run scheduled daily backup job (every 24 hours)
+            self.scheduler.add_job(
+                self.run_backup_job,
+                trigger=IntervalTrigger(hours=24),
+                id="scheduled_backup",
+                name="Automated Daily Portfolio Backup",
+                replace_existing=True
+            )
             self.scheduler.start()
             self.is_running = True
-            logger.info("APScheduler local background scheduler started.")
+            logger.info("APScheduler local background scheduler started with validation and backup jobs.")
 
     def shutdown(self):
         if self.is_running:
             self.scheduler.shutdown(wait=False)
             self.is_running = False
             logger.info("APScheduler local background scheduler shut down.")
+
+    def run_backup_job(self) -> JobRun:
+        if not backup_job_lock.acquire(blocking=False):
+            logger.warning("Backup job already running; skipping duplicate trigger.")
+            db = SessionLocal()
+            run = JobRun(
+                job_name="scheduled_backup",
+                started_at=datetime.now(timezone.utc),
+                finished_at=datetime.now(timezone.utc),
+                status="skipped",
+                error_summary="Concurrent run prevented by lock"
+            )
+            db.add(run)
+            db.commit()
+            db.close()
+            return run
+
+        db: Session = SessionLocal()
+        start_time = datetime.now(timezone.utc)
+        run = JobRun(
+            job_name="scheduled_backup",
+            started_at=start_time,
+            status="running"
+        )
+        db.add(run)
+        db.commit()
+        db.refresh(run)
+
+        try:
+            record = backup_service.create_backup(db, label="scheduled")
+            run.status = "success"
+            run.finished_at = datetime.now(timezone.utc)
+            run.counts = f"Backup created: {record.path} ({record.size_bytes} bytes)"
+            db.commit()
+            logger.info("Scheduled backup completed successfully: %s", record.path)
+        except Exception as ex:
+            run.status = "failed"
+            run.finished_at = datetime.now(timezone.utc)
+            run.error_summary = str(ex)
+            db.commit()
+            logger.error("Scheduled backup failed: %s", ex)
+        finally:
+            db.close()
+            backup_job_lock.release()
+
+        return run
 
     def run_validation_job(self) -> JobRun:
         if not job_lock.acquire(blocking=False):
@@ -84,3 +140,4 @@ class SchedulerService:
         return run
 
 scheduler_service = SchedulerService()
+

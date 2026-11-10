@@ -32,3 +32,4 @@ class AuditService:
         return event
 
 audit_service = AuditService()
+

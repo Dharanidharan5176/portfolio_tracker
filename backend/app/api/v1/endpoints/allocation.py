@@ -76,3 +76,4 @@ def get_allocation(
             "high_concentration_alert": top_1_weight > Decimal("25.00") or top_5_weight > Decimal("60.00")
         }
     }
+

@@ -22,3 +22,4 @@ class Instrument(Base):
     transactions = relationship("Transaction", back_populates="instrument")
     prices = relationship("PriceObservation", back_populates="instrument", cascade="all, delete-orphan")
     corporate_actions = relationship("CorporateAction", back_populates="instrument", cascade="all, delete-orphan")
+

@@ -32,3 +32,4 @@ def restore_backup(
     db: Session = Depends(get_db)
 ):
     return backup_service.restore_backup(db, backup_id, confirm=confirm)
+

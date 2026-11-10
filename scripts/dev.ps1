@@ -28,3 +28,4 @@ npm run dev
 
 # Cleanup when frontend exits
 Stop-Process -Id $backendProcess.Id -ErrorAction SilentlyContinue
+

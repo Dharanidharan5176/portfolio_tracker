@@ -123,4 +123,17 @@ export const api = {
 
   // Settings
   getSettings: () => request<any>('/settings'),
+  updateSettings: (data: Record<string, any>) =>
+    request<any>('/settings', { method: 'PATCH', body: JSON.stringify(data) }),
+
+  // Instruments
+  getInstruments: (search?: string, assetType?: string) => {
+    const params = new URLSearchParams();
+    if (search) params.append('search', search);
+    if (assetType) params.append('asset_type', assetType);
+    return request<any[]>(`/instruments?${params.toString()}`);
+  },
+  createInstrument: (data: any) =>
+    request<any>('/instruments', { method: 'POST', body: JSON.stringify(data) }),
 };
+

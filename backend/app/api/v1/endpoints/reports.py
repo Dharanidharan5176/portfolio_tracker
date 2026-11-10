@@ -40,5 +40,20 @@ def get_report(
             return PlainTextResponse(content=csv_text, media_type="text/csv")
         return data
 
+    elif report_type == "income":
+        data = report_service.generate_income_report(db, target_p_id)
+        if format == "csv":
+            csv_text = report_service.income_to_csv(data)
+            return PlainTextResponse(content=csv_text, media_type="text/csv")
+        return data
+
+    elif report_type == "data-quality":
+        data = report_service.generate_data_quality_report(db, target_p_id)
+        if format == "csv":
+            csv_text = report_service.data_quality_to_csv(data)
+            return PlainTextResponse(content=csv_text, media_type="text/csv")
+        return data
+
     else:
-        raise NotFoundError(f"Report type '{report_type}' not recognized. Use 'holdings' or 'transactions'.")
+        raise NotFoundError(f"Report type '{report_type}' not recognized. Use 'holdings', 'transactions', 'income', or 'data-quality'.")
+

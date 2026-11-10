@@ -23,3 +23,4 @@ def test_dashboard_endpoint():
     assert res.status_code == 200
     data = res.json()
     assert "total_portfolio_value" in data or "portfolio_value" in data
+

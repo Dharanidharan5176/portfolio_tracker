@@ -64,3 +64,4 @@ API documentation is available at `http://127.0.0.1:8000/docs`.
 
 ## Security & Data Privacy
 All portfolio data, transactions, price records, and database files remain strictly on your local disk under `./local-data/`. No external telemetry, tracking, or cloud sync is performed.
+

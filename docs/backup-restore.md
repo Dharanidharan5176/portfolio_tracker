@@ -16,3 +16,4 @@ SQLite databases must not be copied naively while active write connections exist
 3. The restore target file checksum is verified against its record.
 4. Active connections are terminated gracefully.
 5. The SQLite database file is restored and verified.
+

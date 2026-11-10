@@ -57,3 +57,4 @@ async def generic_exception_handler(request: Request, exc: Exception) -> JSONRes
             request_id=request_id
         ).model_dump()
     )
+

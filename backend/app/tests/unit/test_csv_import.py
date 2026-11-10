@@ -94,3 +94,4 @@ TCS,2026-01-05,3050.00,INR,manual_csv
     batch = import_service.confirm_import(db_session, price_csv, "prices.csv", req)
     assert batch.status == "completed"
     assert batch.imported_rows == 2
+

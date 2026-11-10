@@ -67,3 +67,4 @@ class CashLedgerEntry(Base):
 
     account = relationship("Account", back_populates="cash_entries")
     transaction = relationship("Transaction", back_populates="cash_entries")
+

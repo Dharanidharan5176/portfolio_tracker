@@ -18,3 +18,4 @@ class Portfolio(Base):
 
     accounts = relationship("Account", back_populates="portfolio", cascade="all, delete-orphan")
     transactions = relationship("Transaction", back_populates="portfolio")
+

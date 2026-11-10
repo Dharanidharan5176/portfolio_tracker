@@ -383,3 +383,4 @@ export const HoldingsPage: React.FC = () => {
     </div>
   );
 };
+

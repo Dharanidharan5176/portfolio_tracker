@@ -23,3 +23,4 @@ class Account(Base):
     __table_args__ = (
         UniqueConstraint("portfolio_id", "name", name="uq_portfolio_account_name"),
     )
+

@@ -95,3 +95,4 @@ def test_valuation_calculation_and_staleness(db_session):
     assert summary["unrealized_pnl"] == "1990.00"
     assert summary["holdings"][0]["quality_status"] == "valid"
     assert summary["holdings"][0]["is_manual_override"] is True
+

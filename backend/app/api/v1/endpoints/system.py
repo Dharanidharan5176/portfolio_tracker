@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from sqlalchemy import text
+from sqlalchemy import text, select, func
 from backend.app.db.session import get_db
 from backend.app.core.config import settings
+from backend.app.db.models.audit import AuditEvent
 from pathlib import Path
-import sqlite3
+from typing import Optional
 
 router = APIRouter()
 
@@ -38,6 +39,39 @@ def system_health(db: Session = Depends(get_db)):
     }
 
 @router.get("/audit-events")
-def list_audit_events(limit: int = 50, offset: int = 0, db: Session = Depends(get_db)):
-    # Will query AuditEvent table once model is defined
-    return {"items": [], "total": 0, "limit": limit, "offset": offset}
+def list_audit_events(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    action: Optional[str] = Query(None),
+    entity_type: Optional[str] = Query(None),
+    db: Session = Depends(get_db)
+):
+    """Return paginated audit trail from the audit_events table."""
+    q = select(AuditEvent).order_by(AuditEvent.timestamp.desc())
+    count_q = select(func.count()).select_from(AuditEvent)
+
+    if action:
+        q = q.where(AuditEvent.action == action)
+        count_q = count_q.where(AuditEvent.action == action)
+    if entity_type:
+        q = q.where(AuditEvent.entity_type == entity_type)
+        count_q = count_q.where(AuditEvent.entity_type == entity_type)
+
+    total = db.scalar(count_q) or 0
+    rows = db.scalars(q.limit(limit).offset(offset)).all()
+
+    items = [
+        {
+            "id": r.id,
+            "timestamp": r.timestamp.isoformat(),
+            "actor": r.actor,
+            "action": r.action,
+            "entity_type": r.entity_type,
+            "entity_id": r.entity_id,
+            "reason": r.reason,
+            "correlation_id": r.correlation_id,
+        }
+        for r in rows
+    ]
+    return {"items": items, "total": total, "limit": limit, "offset": offset}
+

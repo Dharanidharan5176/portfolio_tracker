@@ -132,3 +132,4 @@ def get_dashboard(
     summary["open_issues_count"] = len(open_issues)
 
     return summary
+

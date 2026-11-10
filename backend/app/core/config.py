@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     BASE_CURRENCY: str = "INR"
     APP_TIMEZONE: str = "Asia/Kolkata"
     LOG_LEVEL: str = "INFO"
+    STALE_PRICE_DAYS: int = 7
     
     # Market Data
     MARKET_DATA_PROVIDER: str = "manual_csv"
@@ -51,3 +52,4 @@ class Settings(BaseSettings):
         return p
 
 settings = Settings()
+

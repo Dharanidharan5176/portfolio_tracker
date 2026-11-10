@@ -18,3 +18,4 @@ class ImportBatch(Base):
     imported_rows: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     failed_rows: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     error_report_path: Mapped[str | None] = mapped_column(String(255), nullable=True)
+

@@ -14,3 +14,4 @@ def list_accounts(portfolio_id: Optional[int] = None, db: Session = Depends(get_
 @router.post("", response_model=AccountResponse, status_code=status.HTTP_201_CREATED)
 def create_account(payload: AccountCreate, db: Session = Depends(get_db)):
     return portfolio_service.create_account(db, payload)
+

@@ -93,3 +93,4 @@ class ManualCSVProvider(MarketDataProvider):
             status_message="Offline local file & manual price entry active.",
             last_sync=latest.observed_at if latest else None
         )
+

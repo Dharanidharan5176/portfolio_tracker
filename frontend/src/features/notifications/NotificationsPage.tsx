@@ -80,3 +80,4 @@ export const NotificationsPage: React.FC = () => {
     </div>
   );
 };
+

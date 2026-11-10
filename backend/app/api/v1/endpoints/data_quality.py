@@ -30,3 +30,4 @@ def trigger_validation_checks(db: Session = Depends(get_db)):
 @router.post("/issues/{issue_id}/resolve")
 def resolve_issue(issue_id: int, reason: str = Query("User resolved"), db: Session = Depends(get_db)):
     return data_quality_service.resolve_issue(db, issue_id, reason)
+

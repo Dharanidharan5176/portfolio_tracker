@@ -43,3 +43,4 @@ graph TD
   - `backups/`: Verified SQLite backups with SHA256 checksums.
   - `imports/`: Archived CSV uploads with SHA256 hashes.
   - `logs/`: Redacted structured log files.
+

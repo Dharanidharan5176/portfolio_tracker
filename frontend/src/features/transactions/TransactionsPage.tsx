@@ -589,3 +589,4 @@ export const TransactionsPage: React.FC = () => {
     </div>
   );
 };
+

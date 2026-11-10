@@ -3,3 +3,4 @@ transaction_date,settlement_date,portfolio,account,symbol,transaction_type,quant
 2026-01-10,,LongTerm,Broker-1,EXAMPLE,SELL,1,120.00,120.00,1.00,0.00,INR,1.0,TXN-0002,Example sell transaction
 2026-01-15,,LongTerm,Broker-1,,CASH_DEPOSIT,,,5000.00,0.00,0.00,INR,1.0,TXN-0003,Salary deposit
 2026-01-20,,LongTerm,Broker-1,EXAMPLE,DIVIDEND,,,25.00,0.00,2.50,INR,1.0,TXN-0004,Quarterly dividend
+

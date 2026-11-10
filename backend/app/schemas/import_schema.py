@@ -44,3 +44,4 @@ class ImportBatchResponse(BaseModel):
     started_at: datetime
     completed_at: Optional[datetime]
     error_report_path: Optional[str]
+

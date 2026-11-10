@@ -94,3 +94,4 @@ export const AllocationPage: React.FC = () => {
     </div>
   );
 };
+

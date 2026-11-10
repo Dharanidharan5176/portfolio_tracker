@@ -54,3 +54,4 @@ class CorporateAction(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
 
     instrument = relationship("Instrument", back_populates="corporate_actions")
+

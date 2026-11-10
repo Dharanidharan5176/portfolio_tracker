@@ -184,3 +184,4 @@ Append-only log of critical user/system actions.
 ### AppSetting & BackupRecord
 - `AppSetting`: `key` (PK), `value`, `updated_at`
 - `BackupRecord`: `id` (PK), `path`, `created_at`, `size_bytes`, `checksum`, `status`, `verified_at`
+

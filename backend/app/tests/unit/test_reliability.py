@@ -63,3 +63,4 @@ def test_data_quality_issue_detection_and_deduplication(db_session):
     resolved = data_quality_service.resolve_issue(db_session, target.id, reason="Audited by user")
     assert resolved.status == "resolved"
     assert resolved.resolution_note == "Audited by user"
+

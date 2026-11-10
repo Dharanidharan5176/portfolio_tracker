@@ -18,6 +18,9 @@ async def lifespan(app: FastAPI):
     settings.data_path
     Base.metadata.create_all(bind=engine)
     scheduler_service.start()
+    # Trigger initial data quality validation asynchronously on startup
+    import threading
+    threading.Thread(target=scheduler_service.run_validation_job, daemon=True).start()
     logger.info("Local Portfolio Tracker API started cleanly on %s:%s", settings.APP_HOST, settings.APP_PORT)
     yield
     scheduler_service.shutdown()

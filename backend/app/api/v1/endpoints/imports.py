@@ -91,3 +91,4 @@ def get_import_batch(batch_id: int, db: Session = Depends(get_db)):
     if not batch:
         raise NotFoundError(f"Import batch {batch_id} not found.")
     return batch
+

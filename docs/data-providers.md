@@ -26,3 +26,4 @@ class MarketDataProvider(ABC):
 2. **Pluggable Web Providers (Future / Optional)**:
    - When configured, API keys are read strictly from environment variables (e.g. `MARKET_DATA_API_KEY`), never stored in plaintext in the database.
    - External requests are rate-limited with exponential backoff and strictly logged (redacting secrets).
+

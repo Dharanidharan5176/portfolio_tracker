@@ -30,3 +30,4 @@ def mark_read(notification_id: int, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(notif)
     return notif
+

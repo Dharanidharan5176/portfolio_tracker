@@ -43,3 +43,4 @@ class MarketDataProvider(ABC):
     @abstractmethod
     def get_provider_health(self) -> ProviderHealthStatus:
         pass
+

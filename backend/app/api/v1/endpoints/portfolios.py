@@ -26,3 +26,4 @@ def update_portfolio(portfolio_id: int, payload: PortfolioUpdate, db: Session = 
 @router.delete("/{portfolio_id}", response_model=PortfolioResponse)
 def archive_portfolio(portfolio_id: int, db: Session = Depends(get_db)):
     return portfolio_service.archive_portfolio(db, portfolio_id)
+

@@ -75,3 +75,4 @@ If valuations at cash flow events are unavailable, the system explicitly returns
 At any point $t$ with portfolio value $V_t$ and historical peak $M_t = \max_{s \le t} V_s$:
 $$\text{Drawdown}_t = \frac{V_t - M_t}{M_t}$$
 Max drawdown is the minimum value of $\text{Drawdown}_t$ across the period.
+

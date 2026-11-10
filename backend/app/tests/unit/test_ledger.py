@@ -210,3 +210,4 @@ def test_split_and_reversal(db_session):
     assert qty == Decimal("10.0000")
     assert cost == Decimal("1500.00")
     assert avg_cost == Decimal("150.0000")
+

@@ -73,3 +73,4 @@ def test_full_portfolio_and_transaction_flow():
     rev_tx = rev_res.json()
     assert rev_tx["type"] == "CORRECTION_REVERSAL"
     assert rev_tx["net_amount"] == "12525.00"
+

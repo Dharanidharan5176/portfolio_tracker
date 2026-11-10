@@ -171,3 +171,4 @@ def record_manual_price(payload: ManualPriceEntry, db: Session = Depends(get_db)
         "observed_at": obs.observed_at.isoformat(),
         "is_manual_override": obs.is_manual_override
     }
+

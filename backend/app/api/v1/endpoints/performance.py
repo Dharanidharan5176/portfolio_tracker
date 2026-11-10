@@ -34,3 +34,4 @@ def get_performance(
         "max_drawdown_pct": dd_res["max_drawdown_pct"],
         "drawdown_series": dd_res["series"]
     }
+

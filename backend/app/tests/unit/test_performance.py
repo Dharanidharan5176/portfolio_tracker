@@ -132,3 +132,4 @@ def test_report_generation_and_sanitization(db_session):
     data = report_service.generate_transactions_report(db_session, portfolio.id)
     csv_str = report_service.transactions_to_csv(data)
     assert "'=cmd|' /C calc'!A0" in csv_str # Properly escaped against spreadsheet formula injection
+
